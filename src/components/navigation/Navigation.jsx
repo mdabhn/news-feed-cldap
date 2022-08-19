@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
 const Navigation = () => {
+  const { pathname } = useLocation()
+
   return (
     <Navbar bg='light' expand='lg'>
       <Container fluid>
@@ -14,24 +16,43 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls='navbarScroll' />
         <Navbar.Collapse id='navbarScroll'>
           <Nav
-            className='me-auto my-2 my-lg-0'
+            className='mx-auto my-2 my-lg-0'
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
             <Nav.Link>
-              <Link to={'/'}>Home</Link>
+              <Link to={'/'} style={{ color: pathname === '/' && 'green' }}>
+                Home
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to={'/us'}>US</Link>
+              <Link to={'/us'} style={{ color: pathname === '/us' && 'green' }}>
+                US
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to={'/world'}>World</Link>
+              <Link
+                to={'/world'}
+                style={{ color: pathname === '/world' && 'green' }}
+              >
+                World
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to={'/science'}>Science</Link>
+              <Link
+                to={'/science'}
+                style={{ color: pathname === '/scinece' && 'green' }}
+              >
+                Science
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to={'/arts'}>Arts</Link>
+              <Link
+                to={'/arts'}
+                style={{ color: pathname === '/arts' && 'green' }}
+              >
+                Arts
+              </Link>
             </Nav.Link>
           </Nav>
           <Form className='d-flex'>
