@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 
 const CardContianer = ({ section, title, abstract, url, multimedia }) => {
+  const isDisable = url === 'null' ? true : url.length === 0 ? true : false
   return (
     <>
       {multimedia !== null && (
@@ -32,7 +33,14 @@ const CardContianer = ({ section, title, abstract, url, multimedia }) => {
                   : abstract.slice(0, 100) + '...'
                 : 'No details available...'}
             </Card.Text>
-            <Button variant='dark' className='text-green-900 w-full mt-6'>
+            <Button
+              variant='dark'
+              className='text-green-900 w-full mt-6'
+              onClick={() => {
+                window.location.href = url
+              }}
+              disabled={isDisable}
+            >
               Read Deatils
             </Button>
           </Card.Body>

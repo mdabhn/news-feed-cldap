@@ -51,6 +51,7 @@ const Science = () => {
                   multimedia={data.multimedia}
                   title={data.title}
                   abstract={data.abstract}
+                  url={data.url}
                 />
               </div>
             ))}
