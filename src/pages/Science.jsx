@@ -14,7 +14,7 @@ const Science = () => {
           console.log(res)
           if (res.status === 'OK') {
             setScienceData(res.results)
-            localStorage.setItem('nf-us', JSON.stringify(res.results))
+            localStorage.setItem('nf-sc', JSON.stringify(res.results))
           }
         } else {
           console.log(res)
@@ -24,7 +24,7 @@ const Science = () => {
         console.log(err)
       })
 
-    // setScienceData(JSON.parse(localStorage.getItem('nf-us')))
+    // setScienceData(JSON.parse(localStorage.getItem('nf-sc')))
   }, [])
 
   return (
@@ -32,7 +32,7 @@ const Science = () => {
       <div className='lg:p-12'>
         <section className='header flex justify-center mb-20'>
           <h1 className='font-bold text-2xl lg:mt-0 mt-3'>
-            Todays Top US News
+            Todays Top Scinece News
           </h1>
         </section>
         {scienceData.length > 0 ? (

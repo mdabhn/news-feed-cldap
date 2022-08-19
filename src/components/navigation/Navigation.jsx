@@ -12,7 +12,7 @@ const Navigation = () => {
   return (
     <Navbar bg='light' expand='lg'>
       <Container fluid>
-        <Navbar.Brand href='/'>Navbar scroll</Navbar.Brand>
+        <Navbar.Brand href='/'>News Portal</Navbar.Brand>
         <Navbar.Toggle aria-controls='navbarScroll' />
         <Navbar.Collapse id='navbarScroll'>
           <Nav
@@ -41,7 +41,7 @@ const Navigation = () => {
             <Nav.Link>
               <Link
                 to={'/science'}
-                style={{ color: pathname === '/scinece' && 'green' }}
+                style={{ color: pathname === '/science' && 'green' }}
               >
                 Science
               </Link>
