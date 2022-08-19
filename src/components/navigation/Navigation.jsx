@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import { ContextApi } from '../../App'
 
 const Navigation = () => {
   const { pathname } = useLocation()
+
+  const { setSearchContext } = useContext(ContextApi)
 
   return (
     <Navbar bg='light' expand='lg'>
@@ -61,6 +64,7 @@ const Navigation = () => {
               placeholder='Search'
               className='me-2'
               aria-label='Search'
+              onChange={(text) => setSearchContext(text.target.value)}
             />
             <Button variant='outline-success'>Search</Button>
           </Form>

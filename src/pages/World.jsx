@@ -45,7 +45,7 @@ const World = () => {
             }}
           >
             {worldData.map((data) => (
-              <div style={{ padding: '10px' }}>
+              <div style={{ padding: '10px' }} key={data.created_date}>
                 <CardContianer
                   section={data.section}
                   multimedia={data.multimedia}
