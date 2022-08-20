@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { ContextApi } from '../App'
 import CardContianer from '../components/card/CardContianer'
 
 const Arts = () => {
+  const { searchContext } = useContext(ContextApi)
+
   const [artsData, setArtsData] = useState([])
+  const [filteredArtsData, setFilteredArtsData] = useState([])
 
   useEffect(() => {
     fetch(
@@ -14,6 +18,7 @@ const Arts = () => {
           console.log(res)
           if (res.status === 'OK') {
             setArtsData(res.results)
+            setFilteredArtsData(res.results)
             localStorage.setItem('nf-wr', JSON.stringify(res.results))
           }
         } else {
@@ -25,7 +30,27 @@ const Arts = () => {
       })
 
     // setArtsData(JSON.parse(localStorage.getItem('wr-world')))
+    // setFilteredArtsData(JSON.parse(localStorage.getItem('wr-world')))
   }, [])
+
+  useEffect(() => {
+    if (searchContext.length !== 0) {
+      setFilteredArtsData(
+        artsData.filter((d) => {
+          if (
+            d.section.toLowerCase().includes(searchContext.toLowerCase()) ||
+            d.title.toLowerCase().includes(searchContext.toLowerCase()) ||
+            d.abstract.toLowerCase().includes(searchContext.toLowerCase())
+          ) {
+            return d
+          }
+          return null
+        })
+      )
+    } else {
+      setFilteredArtsData(artsData)
+    }
+  }, [searchContext, artsData])
 
   return (
     <>
@@ -44,8 +69,11 @@ const Arts = () => {
               justifyContent: 'center',
             }}
           >
-            {artsData.map((data) => (
-              <div style={{ padding: '10px' }} key={data.created_date}>
+            {filteredArtsData.map((data) => (
+              <div
+                style={{ padding: '10px' }}
+                key={`${data.created_date}-${data.updated_date}}`}
+              >
                 <CardContianer
                   section={data.section}
                   multimedia={data.multimedia}

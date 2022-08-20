@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { ContextApi } from '../App'
 import CardContianer from '../components/card/CardContianer'
 
 const US = () => {
+  const { searchContext } = useContext(ContextApi)
+
   const [usData, setUSData] = useState([])
+  const [filteredUsData, setFilteredUsData] = useState([])
 
   useEffect(() => {
     fetch(
@@ -14,6 +18,7 @@ const US = () => {
           console.log(res)
           if (res.status === 'OK') {
             setUSData(res.results)
+            setFilteredUsData(res.results)
             localStorage.setItem('nf-us', JSON.stringify(res.results))
           }
         } else {
@@ -25,7 +30,27 @@ const US = () => {
       })
 
     // setUSData(JSON.parse(localStorage.getItem('nf-us')))
+    // setFilteredUsData(JSON.parse(localStorage.getItem('nf-us')))
   }, [])
+
+  useEffect(() => {
+    if (searchContext.length !== 0) {
+      setFilteredUsData(
+        usData.filter((d) => {
+          if (
+            d.section.toLowerCase().includes(searchContext.toLowerCase()) ||
+            d.title.toLowerCase().includes(searchContext.toLowerCase()) ||
+            d.abstract.toLowerCase().includes(searchContext.toLowerCase())
+          ) {
+            return d
+          }
+          return null
+        })
+      )
+    } else {
+      setFilteredUsData(usData)
+    }
+  }, [searchContext, usData])
 
   return (
     <>
@@ -44,8 +69,11 @@ const US = () => {
               justifyContent: 'center',
             }}
           >
-            {usData.map((data) => (
-              <div style={{ padding: '10px' }} key={data.created_date}>
+            {filteredUsData.map((data) => (
+              <div
+                style={{ padding: '10px' }}
+                key={`${data.created_date}-${data.updated_date}}`}
+              >
                 <CardContianer
                   section={data.section}
                   multimedia={data.multimedia}

@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { ContextApi } from '../App'
 import CardContianer from '../components/card/CardContianer'
 
 const Science = () => {
+  const { searchContext } = useContext(ContextApi)
+
   const [scienceData, setScienceData] = useState([])
+  const [filteredScienceData, setFilteredScienceData] = useState([])
 
   useEffect(() => {
     fetch(
@@ -14,6 +18,7 @@ const Science = () => {
           console.log(res)
           if (res.status === 'OK') {
             setScienceData(res.results)
+            setFilteredScienceData(res.results)
             localStorage.setItem('nf-sc', JSON.stringify(res.results))
           }
         } else {
@@ -25,7 +30,27 @@ const Science = () => {
       })
 
     // setScienceData(JSON.parse(localStorage.getItem('nf-sc')))
+    // setFilteredScienceData(JSON.parse(localStorage.getItem('nf-sc')))
   }, [])
+
+  useEffect(() => {
+    if (searchContext.length !== 0) {
+      setFilteredScienceData(
+        scienceData.filter((d) => {
+          if (
+            d.section.toLowerCase().includes(searchContext.toLowerCase()) ||
+            d.title.toLowerCase().includes(searchContext.toLowerCase()) ||
+            d.abstract.toLowerCase().includes(searchContext.toLowerCase())
+          ) {
+            return d
+          }
+          return null
+        })
+      )
+    } else {
+      setFilteredScienceData(scienceData)
+    }
+  }, [searchContext, scienceData])
 
   return (
     <>
@@ -44,8 +69,11 @@ const Science = () => {
               justifyContent: 'center',
             }}
           >
-            {scienceData.map((data) => (
-              <div style={{ padding: '10px' }} key={data.created_date}>
+            {filteredScienceData.map((data) => (
+              <div
+                style={{ padding: '10px' }}
+                key={`${data.created_date}-${data.updated_date}}`}
+              >
                 <CardContianer
                   section={data.section}
                   multimedia={data.multimedia}
