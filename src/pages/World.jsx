@@ -88,6 +88,11 @@ const World = () => {
           <p className='text-center'>loading...</p>
         )}
       </div>
+      {filteredWorldData.length === 0 && (
+        <p className='text-center'>
+          SORRY, No data availbe with searched context
+        </p>
+      )}
     </>
   )
 }

@@ -85,6 +85,11 @@ const Home = () => {
         ) : (
           <p className='text-center'>loading...</p>
         )}
+        {filteredHomeData.length === 0 && (
+          <p className='text-center'>
+            SORRY, No data availbe with searched context
+          </p>
+        )}
       </div>
     </>
   )
