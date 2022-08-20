@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -10,7 +10,12 @@ import { ContextApi } from '../../App'
 const Navigation = () => {
   const { pathname } = useLocation()
 
-  const { setSearchContext } = useContext(ContextApi)
+  const { searchContext, setSearchContext } = useContext(ContextApi)
+
+  useEffect(() => {
+    setSearchContext('')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   return (
     <Navbar bg='light' expand='lg'>
@@ -64,6 +69,7 @@ const Navigation = () => {
               placeholder='Search'
               className='me-2'
               aria-label='Search'
+              value={searchContext}
               onChange={(text) => setSearchContext(text.target.value)}
             />
             {/* <Button variant='outline-success'>Search</Button> */}
