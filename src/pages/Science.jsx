@@ -88,7 +88,7 @@ const Science = () => {
           <p className='text-center'>loading...</p>
         )}
 
-        {filteredScienceData.length === 0 && (
+        {scienceData.length > 0 && filteredScienceData.length === 0 && (
           <p className='text-center'>
             SORRY, No data availbe with searched context
           </p>

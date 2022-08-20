@@ -88,7 +88,7 @@ const US = () => {
           <p className='text-center'>loading...</p>
         )}
 
-        {filteredUsData.length === 0 && (
+        {usData.length > 0 && filteredUsData.length === 0 && (
           <p className='text-center'>
             SORRY, No data availbe with searched context
           </p>

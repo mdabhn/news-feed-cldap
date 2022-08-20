@@ -87,7 +87,7 @@ const Arts = () => {
         ) : (
           <p className='text-center'>loading...</p>
         )}
-        {filteredArtsData.length === 0 && (
+        {artsData.length > 0 && filteredArtsData.length === 0 && (
           <p className='text-center'>
             SORRY, No data availbe with searched context
           </p>
